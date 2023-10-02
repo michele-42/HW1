@@ -824,6 +824,23 @@ print(list(map(cube, fibonacci(n))))
 
 
 
+
+################ Regex and Parsing ##################
+
+# 1. Re.split()
+
+regex_pattern = r"[,.]"	# Do not delete 'r'.
+
+import re
+print("\n".join(re.split(regex_pattern, input())))
+
+### DO LATER
+
+
+
+
+
+
 ###################### XML ##########################
 
 
@@ -869,7 +886,168 @@ if __name__ == '__main__':
 
 
 
+
+
+
+
+
 ########### Closures and decorations ###############
+
+
+
+# 1. Standardize mobile number using decorators
+def wrapper(f):
+    def fun(l):
+        l1 = []
+        for x in l:
+            if len(x) == 10:
+                s = "+91 " + x[:5] + " " + x[5:]
+            elif x[:3] == "+91":
+                s = x[:3] + " " + x[3:8] + " " + x[8:]
+            elif x[:2] == "91":
+                s = "+" + x[:2] + " " + x[2:7] + " " + x[7:]
+            elif x[0] == "0":
+                s = "+91 " + x[1:6] + " " + x[6:]
+            l1.append(s)
+        f(l1)
+
+    return fun
+
+@wrapper
+def sort_phone(l):
+    print(*sorted(l), sep='\n')
+
+if __name__ == '__main__':
+    l = [input() for _ in range(int(input()))]
+    sort_phone(l) 
+
+
+
+# 2. Name directory
+def person_lister(f):
+    def inner(people):
+        for i in range(len(people)):
+            people[i].append(i)
+        people.sort(key=lambda x: (int(x[2]), x[4]))
+        return list(map(f, people))
+            
+    return inner
+
+@person_lister
+def name_format(person):
+    return ("Mr. " if person[3] == "M" else "Ms. ") + person[0] + " " + person[1]
+
+if __name__ == '__main__':
+    people = [input().split() for i in range(int(input()))]
+    print(*name_format(people), sep='\n')
+
+
+
+
+###################### Numpy ##########################
+
+
+
+# 1. Arrays
+import numpy
+
+def arrays(arr):
+    a = numpy.array(arr, float)
+    return str(numpy.flip(a))
+
+arr = input().strip().split(' ')
+result = arrays(arr)
+print(result)
+
+
+
+# 2. Shape and reshape
+a = numpy.array(list(map(int, input().split())))
+a.shape = (3, 3)
+print(a)
+
+
+
+# 3. Transpose and Flatten
+n, m = list(map(int, input().split()))
+
+a = numpy.array([list(map(int, input().split())) for _ in range(n)])
+
+print(numpy.transpose(a))
+print(a.flatten())
+
+
+
+# 4. Concatenate
+n, m, p = list(map(int, input().split()))
+
+array_1 = numpy.array([list(map(int, input().split())) for _ in range(n)])
+array_2 = numpy.array([list(map(int, input().split())) for _ in range(m)])
+
+print(numpy.concatenate((array_1, array_2), axis=0))
+
+
+
+# 5. Zeroes and ones
+t = tuple(map(int, input().split()))
+print(numpy.zeros(t, dtype=int))
+print(numpy.ones(t, dtype=int))
+
+
+# 6. Eye and Identity
+numpy.set_printoptions(legacy='1.13')
+m, n = list(map(int, input().split()))
+print(numpy.eye(m, n, k=0))
+
+
+
+# 7. Array Mathematics
+n, m = list(map(int, input().split()))
+
+a = numpy.array([list(map(int, input().split())) for _ in range(n)])
+b = numpy.array([list(map(int, input().split())) for _ in range(n)])
+
+print(a+b)
+print(a-b)
+print(a*b)
+print(a//b)
+print(a % b)
+print(a**b)
+
+
+# 8. Floor, Ceil and Rint
+numpy.set_printoptions(legacy='1.13')
+
+arr = numpy.array(list(map(float, input().split())))
+
+print(numpy.floor(arr))
+print(numpy.ceil(arr))
+print(numpy.rint(arr))
+
+
+
+# 9. Sum and Prod
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
