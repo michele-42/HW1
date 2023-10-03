@@ -970,9 +970,7 @@ print(a)
 
 # 3. Transpose and Flatten
 n, m = list(map(int, input().split()))
-
 a = numpy.array([list(map(int, input().split())) for _ in range(n)])
-
 print(numpy.transpose(a))
 print(a.flatten())
 
@@ -980,10 +978,8 @@ print(a.flatten())
 
 # 4. Concatenate
 n, m, p = list(map(int, input().split()))
-
 array_1 = numpy.array([list(map(int, input().split())) for _ in range(n)])
 array_2 = numpy.array([list(map(int, input().split())) for _ in range(m)])
-
 print(numpy.concatenate((array_1, array_2), axis=0))
 
 
@@ -992,6 +988,7 @@ print(numpy.concatenate((array_1, array_2), axis=0))
 t = tuple(map(int, input().split()))
 print(numpy.zeros(t, dtype=int))
 print(numpy.ones(t, dtype=int))
+
 
 
 # 6. Eye and Identity
@@ -1003,10 +1000,8 @@ print(numpy.eye(m, n, k=0))
 
 # 7. Array Mathematics
 n, m = list(map(int, input().split()))
-
 a = numpy.array([list(map(int, input().split())) for _ in range(n)])
 b = numpy.array([list(map(int, input().split())) for _ in range(n)])
-
 print(a+b)
 print(a-b)
 print(a*b)
@@ -1017,9 +1012,7 @@ print(a**b)
 
 # 8. Floor, Ceil and Rint
 numpy.set_printoptions(legacy='1.13')
-
 arr = numpy.array(list(map(float, input().split())))
-
 print(numpy.floor(arr))
 print(numpy.ceil(arr))
 print(numpy.rint(arr))
@@ -1027,21 +1020,88 @@ print(numpy.rint(arr))
 
 
 # 9. Sum and Prod
+n, m = list(map(int, input().split()))
+arr = numpy.array([list(map(int, input().split())) for _ in range(n)])
+print(numpy.prod(numpy.sum(arr, axis=0)))
 
 
 
+# 10. Min and Max
+n, m = list(map(int, input().split()))
+arr = numpy.array([list(map(int, input().split())) for _ in range(n)])
+print(numpy.max(numpy.min(arr, axis=1)))
 
 
 
+# 11. Mean Var and Std
+n, m = list(map(int, input().split()))
+arr = numpy.array([list(map(int, input().split())) for _ in range(n)])
+print(numpy.mean(arr, axis=1))
+print(numpy.var(arr, axis=0))
+print(round(numpy.std(arr, axis=None), 11))
 
 
 
+# 12. Inner and Outer 
+a = numpy.array(list(map(int, input().split())))
+b = numpy.array(list(map(int, input().split())))
+
+print(numpy.inner(a, b))
+print(numpy.outer(a, b))
 
 
 
+# 13. Polynomials
+coef = numpy.array(list(map(float, input().split())))
+x = int(input())
+
+print(numpy.polyval(coef, x))
 
 
 
+# 14. Linear Algebra
+n = int(input())
+arr = numpy.array([list(map(float, input().split())) for _ in range(n)])
+
+print(round(numpy.linalg.det(arr), 2))
+
+
+
+# 15. Dot and Cross
+n = int(input())
+A = numpy.array([list(map(int, input().split())) for _ in range(n)])
+B = numpy.array([list(map(int, input().split())) for _ in range(n)])
+
+TB = numpy.transpose(B)
+M = numpy.zeros((n, n), dtype=int)
+
+for i in range(n):
+    for j in range(n):
+        M[i][j] = numpy.dot(A[i], TB[j])
+
+print(M)
+
+
+################## Birthday Cake Candles ########################
+
+def birthdayCakeCandles(candles):
+    return candles.count(max(candles))
+
+
+
+######################## Cangaroo ###############################
+
+def kangaroo(x1, v1, x2, v2):
+    if v1 == v2:
+        return "NO"
+        
+    a = (x1 - x2) % (v2 - v1)
+    b = (x1 - x2) / (v2 - v1)
+    
+    return "YES" if a == 0 and b > 0 else "NO"
+
+
+######################## Cangaroo ###############################
 
 
 
