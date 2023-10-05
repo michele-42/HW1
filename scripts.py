@@ -827,16 +827,126 @@ print(list(map(cube, fibonacci(n))))
 
 ################ Regex and Parsing ##################
 
+
+
 # 1. Re.split()
+import re
 
 regex_pattern = r"[,.]"	# Do not delete 'r'.
 
-import re
 print("\n".join(re.split(regex_pattern, input())))
 
-### DO LATER
 
 
+# 2. Detect Floating Point Number
+n = int(input())
+regex_pattern = r"^[\+-]?[0-9]*\.[0-9]+$"
+
+for _ in range(n):
+    string = input()
+    m = re.match(regex_pattern, string)
+    print(True if m else False)
+
+
+
+# 3. Group(), Groups() & Groupdict()
+s = input()
+
+r1 = re.compile(r"([a-zA-Z0-9]).*\1\1+")
+l1 = list(r1.finditer(s))
+
+if (l1):
+    print(l1[0].group(1))
+else:
+    r2 = re.compile(r"([a-zA-Z0-9])\1+")
+    l2 = list(r2.finditer(s))
+    if l2:
+        print(l2[0].group(1))
+    else:
+        print("-1")
+
+
+
+# 4. Re.findall() & Re.finditer()
+s = input()
+voc = "aeiouAEIOU"
+con = "bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTWXYZ"
+pattern = f"(?=[{con}]([{voc}][{voc}]+)[{con}])"
+r = re.findall(pattern, s)
+
+if r:
+    print("\n".join(r))
+else:
+    print("-1")
+
+
+
+# 5. start() & end()
+s = input()
+pattern = input()
+
+l = list(re.finditer(f"(?=({pattern}))", s))
+
+if l:
+    for m in l:
+        print((m.start(1), m.end(1)-1))
+else:
+    print("(-1, -1)")
+
+
+
+# 6. Regex Substitution
+n = int(input())
+
+pattern = r" (&&|\|\|)(?= )"
+
+def replacelog(match):
+    val = match.group(1)
+    return " and" if val == "&&" else " or"
+
+for _ in range(n):
+    line = input()
+    print(re.sub(pattern, replacelog, line))
+
+
+
+# 7. Valid phone numbers
+n = int(input())
+
+for _ in range(n):
+    phone_number = input()
+    m = re.match(r"^[789][0-9]{9}$", phone_number)
+    print("YES" if m else "NO")
+
+
+# 8. Validatin and Parsing Email Addresses 
+import email.utils
+
+n = int(input())
+for _ in range(n):
+    line = input()
+    mail = email.utils.parseaddr(line)[1]
+    r = re.match(r"^[a-z][a-z0-9\.\-_]*@[a-z]+\.[a-z]{1,3}$", mail)
+    if r:
+        print(line)
+
+
+
+# 9. Hex Color Code
+n = int(input())
+pattern = r"(#[a-fA-F0-9]{6}|#[a-fA-F0-9]{3})"
+inside = False
+
+for _ in range(n):
+    s = input()
+    if inside:
+        r = re.findall(pattern, s)
+        for m in r:
+            print(m)
+    if s.count('{'):
+        inside = True
+    if s.count('}'):
+        inside = False
 
 
 
@@ -1089,7 +1199,7 @@ def birthdayCakeCandles(candles):
 
 
 
-######################## Cangaroo ###############################
+######################## Kangaroo ###############################
 
 def kangaroo(x1, v1, x2, v2):
     if v1 == v2:
@@ -1101,8 +1211,65 @@ def kangaroo(x1, v1, x2, v2):
     return "YES" if a == 0 and b > 0 else "NO"
 
 
-######################## Cangaroo ###############################
+######################## Strange advertising ###################
 
+def viralAdvertising(n):
+    
+    row = [5, 0, 0]
+    
+    for i in range(n):
+        row[1] = math.floor(row[0]/2)
+        row[2] += row[1]
+        row[0] = 3*row[1]
+        
+    return row[2]
+
+
+
+######################## Recursive digit sum ###################
+
+def rec(n):
+    if int(n) < 10:
+        return n
+    return rec(str(sum(map(int, list(n)))))
+    
+    
+
+def superDigit(n, k):
+    return int(rec(str(sum(map(int, list(n)))*k)))
+
+
+
+######################## insertion sort 1 ###################
+
+def insertionSort1(n, arr):
+    e = arr[-1]
+    
+    for i in range(n-1, -1, -1):
+        arr[i] = arr[i-1]
+        if e > arr[i] or i == 0:
+            arr[i] = e
+            print(" ".join(map(str, arr)))
+            break
+        else:
+            print(" ".join(map(str, arr)))
+    return arr
+
+
+
+######################## insertion sort 2 ###################
+
+def insertionSort2(n, arr):
+    
+    for j in range(1, n):
+        e = arr[j]
+        for i in range(j, -1, -1):
+            arr[i] = arr[i-1]
+            if e > arr[i] or i == 0:
+                arr[i] = e
+                print(" ".join(map(str, arr)))
+                break
+    return arr
 
 
 
