@@ -950,6 +950,52 @@ for _ in range(n):
 
 
 
+#10 Roman numerals  (found on stackoverflow)
+regex_pattern = r"M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$"
+import re
+print(str(bool(re.match(regex_pattern, input()))))
+
+
+
+#11 HTML parser (works only for 4/6 tests)
+n = int(input())
+s = [input() for _ in range(n)]
+
+def parseHTLM(doc):
+
+    comment = False 
+
+    for row in doc:
+
+        if re.findall("<!", row):
+            comment = True
+
+
+        if not comment:
+            r = re.finditer("<(?P<open_tag>/?) *(?P<tag_name>\w+) *(?P<attributes>( [\w\-_]+(=['\"][\w_/\.\-\:\;\= ]+['\"])?)*) *(?P<close_tag>/?)>", row)
+
+            for m in r:
+                d = m.groupdict()
+                if d['open_tag']:
+                    print(f"End   : {d['tag_name']}")
+                elif not d['open_tag'] and d['tag_name']:
+
+                    if d['close_tag']:
+                        print(f"Empty : {d['tag_name']}")
+                    else:
+                        print(f"Start : {d['tag_name']}")
+
+                    if d['attributes']:
+                        r1 = re.finditer(r"(?P<name>[\w\-_]+)(=['\"](?P<value>[\w_/\.\-\:\;\= ]+)['\"])?", d['attributes'])
+                        for m in r1:
+                            d1 = m.groupdict()
+                            print(f"-> {d1['name']} > {d1['value']}")
+
+        if re.findall("-->", row):
+            comment = False
+    
+    
+
 
 ###################### XML ##########################
 
