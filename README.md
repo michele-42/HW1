@@ -1,6 +1,7 @@
 # HW1
 
-Select and execute one exercise at a time, provide user input when requested.
+Select and execute one exercise at a time (copy/paste code in separate file), provide user input when requested.
+
 No functions other then the ones requested by exercise were implemented. 
 
 All exercises where solved using python documentation. Except:
